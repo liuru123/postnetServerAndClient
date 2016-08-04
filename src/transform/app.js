@@ -9,7 +9,6 @@ const inputPo = require('./action/InputPost.js');
 const router = require('./action/Router.js');
 const shell = require('./action/Shell.js');
 
-
 const actions = [init, barcode, post, inputBar, inputPo];
 const routers = new router(actions);
 
