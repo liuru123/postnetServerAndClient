@@ -4,6 +4,7 @@
 const ptb = require('../routes/PostTransformBarcode.js');
 const CreateAction = require('./RouterAction.js');
 const request = require('superagent');
+const sendRequest = require('../request');
 
 const name = `InputPost`;
 const help = ``;
@@ -19,17 +20,7 @@ class InputPost extends CreateAction {
             case 'i':
                 return 'InputPost';
             default:
-                request
-                    .post('localhost:3000/PostTransformBarcode')
-                    .type('form')
-                    .send({posts:cmd.trim()})
-                    .end((err,res)=>{
-                        if(res.ok){
-                            console.log(JSON.stringify(res.body));
-                        }else {
-                            console.log('oh no error');
-                        }
-                    });
+                sendRequest('PostTransformBarcode',cmd.trim());
                 return 'PostTransformBarcode';
         }
     }
