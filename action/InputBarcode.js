@@ -4,6 +4,7 @@
 const CreateAction = require('./RouterAction.js');
 const btp = require('../routes/BarcodeTransformPost.js');
 const request = require('superagent');
+const sendRequest = require('../request');
 
 const name = `InputBarcode`;
 const help = ``;
@@ -20,17 +21,7 @@ class InputBarcode extends CreateAction {
             case 'q':
                 process.exit(0);
             default: {
-                request
-                    .post('localhost:3000/BarcodeTransformPost')
-                    .type('form')
-                    .send({barcode:cmd})
-                    .end((err,res)=>{
-                        if(res.ok){
-                            console.log(JSON.stringify(res.body));
-                        }else {
-                            console.log('oh error');
-                        }
-                    });
+                sendRequest('BarcodeTransformPost',cmd.trim());
                 return 'BarcodeTransformPost';
             }
         }
