@@ -1,5 +1,5 @@
 'use strict';
-const barcode = require('../../transform/BarcodeTransformPost.js');
+const barcode = require('../../src/transform/BarcodeTransformPost.js');
 
 let barcodeToPost = new barcode();
 
@@ -9,15 +9,14 @@ describe("BarcodeTransformPost", function () {
         let items = ['||:::', ':::||',
             '::|:|', '::||:', ':|::|', ':|:|:', ':||::', '|:::|', '|::|:', '|:|::'];
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `97973
-cd is:5`;
+        let expected = {error:``,data:`97973     cd is:5`};
         expect(result).toEqual(expected);
     });
 
     it("return the error of the not find", function () {
         let example = '| |:|:: |:::| |:|:: |:::| ::||: |:|:| |';
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `the each number > 9 or the exampleString is not correct`;
+        let expected = {error:`the each number > 9 or the exampleString is not correct`,data:``};
         expect(result).toEqual(expected);
     });
 
@@ -26,7 +25,7 @@ cd is:5`;
         let items = ['||:::', ':::||',
             '::|:|', '::||:', ':|::|', ':|:|:', ':||::', '|:::|', '|::|:', '|:|::'];
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `the input is have not correct input`;
+        let expected = {error:`the input is have not correct input`,data:``};
         expect(result).toEqual(expected);
     });
 
@@ -35,7 +34,7 @@ cd is:5`;
         let items = ['||:::', ':::||',
             '::|:|', '::||:', ':|::|', ':|:|:', ':||::', '|:::|', '|::|:', '|:|::'];
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `the barcode is not five char`;
+        let expected = {error:`the barcode is not five char`,data:``};
         expect(result).toEqual(expected);
     });
 
@@ -44,7 +43,7 @@ cd is:5`;
         let items = ['||:::', ':::||',
             '::|:|', '::||:', ':|::|', ':|:|:', ':||::', '|:::|', '|::|:', '|:|::'];
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `the barcode have not frame`;
+        let expected = {error:`the barcode have not frame`,data:``};
         expect(result).toEqual(expected);
     });
 
@@ -53,7 +52,7 @@ cd is:5`;
         let items = ['||:::', ':::||',
             '::|:|', '::||:', ':|::|', ':|:|:', ':||::', '|:::|', '|::|:', '|:|::'];
         let result = barcodeToPost.BarcodeTransformPost(example);
-        let expected = `the barcode length is not valid`;
+        let expected = {error:`the barcode length is not valid`,data:``};
         expect(result).toEqual(expected);
     });
 });

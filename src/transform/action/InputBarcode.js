@@ -2,7 +2,7 @@
  * Created by liuru on 16-7-29.
  */
 const CreateAction = require('./RouterAction.js');
-const btp = require('../routes/BarcodeTransformPost.js');
+const btp = require('../BarcodeTransformPost.js');
 const request = require('superagent');
 const sendRequest = require('../request');
 

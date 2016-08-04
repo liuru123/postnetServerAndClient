@@ -10,5 +10,5 @@ module.exports=function sendRequest(router,cmd) {
         },
         body: `code=${cmd}`
     });
-    console.log(res.getBody().toString());
+    console.log(JSON.parse(res.getBody().toString()));
 };

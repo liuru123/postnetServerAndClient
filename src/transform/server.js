@@ -1,11 +1,8 @@
-/**
- * Created by liuru on 16-8-1.
- */
 const express =require('express');
 const bodyParser =require('body-parser');
 const app = express();
-var post = require('./routes/PostTransformBarcode');
-var barcode = require('./routes/BarcodeTransformPost');
+var post = require('./PostTransformBarcode');
+var barcode = require('./BarcodeTransformPost');
  app.use(bodyParser.urlencoded({extend:true}));
 
 app.post('/PostTransformBarcode',function (req,res) {
@@ -17,3 +14,6 @@ app.post('/BarcodeTransformPost',function (req,res) {
 app.listen(3000,function () {
     console.log('Example app listening on port 3000!');
 });
+
+
+module.exports = app;

@@ -1,9 +1,11 @@
-const ba = require('../../transform/action/BarcodeAction.js');
-const init = require('../../transform/action/InitAction.js');
-const inputBar = require('../../transform/action/InputBarcode.js');
-const inputPo = require('../../transform/action/InputPost.js');
-const post = require('../../transform/action/PostAction.js');
-const router = require('../../transform/action/RouterAction.js');
+const ba = require('../../src/transform/action/BarcodeAction.js');
+const init = require('../../src/transform/action/InitAction.js');
+const inputBar = require('../../src/transform/action/InputBarcode.js');
+const inputPo = require('../../src/transform/action/InputPost.js');
+const post = require('../../src/transform/action/PostAction.js');
+const router = require('../../src/transform/action/RouterAction.js');
+const routes= require('../../src/transform/action/Router.js')
+//const shell = require('../../Shell.js');
 
 describe("const[0].doAction", function () {
     it("should return the name of function of number", function () {
@@ -63,8 +65,7 @@ describe("inputbarcode", function () {
     });
     it('should reutrn the input check BarcodeTransformPost', function () {
         let cmd = '| :::|| ::|:| ::||: :|::| :|:|: :|:|: |';
-        let expected = `12345
-cd is:5`;
+        let expected = {error:``,data:`12345     cd is:5`};
         spyOn(console, 'log');
         let result = inputBar.doAction(cmd);
 
@@ -72,7 +73,7 @@ cd is:5`;
     });
     it('should reutrn the input check BarcodeTransformPost', function () {
         let cmd = '|ssss';
-        let expected = `the input is have not correct input`;
+        let expected = {error:`the input is have not correct input`,data:``};
         spyOn(console, 'log');
         let result = inputBar.doAction(cmd);
 
@@ -80,7 +81,7 @@ cd is:5`;
     });
     it('should reutrn the input check BarcodeTransformPost', function () {
         let cmd = '| |::|| ::|:| ::||: :|::| :|:|: :|:|: |';
-        let expected = `the each number > 9 or the exampleString is not correct`;
+        let expected = {error:`the each number > 9 or the exampleString is not correct`,data:``};
         spyOn(console, 'log');
         let result = inputBar.doAction(cmd);
 
@@ -101,24 +102,27 @@ describe("inputPost", function () {
         let expected = 'InputPost';
         expect(result).toEqual(expected);
     });
+
     it('should return the input check postTransformBarcode', function () {
         let cmd = '12345';
-        let expected = '|:::||::|:|::||::|::|:|:|::|:|:|';
+        let expected = {error:``,data:`|:::||::|:|::||::|::|:|:|::|:|:|`};
         spyOn(console, 'log');
         let result = inputPo.doAction(cmd);
 
         expect(console.log).toHaveBeenCalledWith(expected);
     });
+
     it('should return the input check postTransformBarcode', function () {
         let cmd = '123453';
-        let expected = `the input is error`;
+        let expected = {error:`the input is error`,data:``};
         spyOn(console, 'log');
         let result = inputPo.doAction(cmd);
-
+        let expected1 = 'PostTransformBarcode';
         expect(console.log).toHaveBeenCalledWith(expected);
+        expect(result).toEqual(expected1);
     });
-
 });
+
 describe("postAction", function () {
     it("should return the postAction", function () {
         let input = '2';
@@ -139,3 +143,75 @@ describe("postAction", function () {
         expect(result).toEqual(expected);
     });
 });
+
+
+/* describe("route",function () {
+    it("should output the barcodeTransformPost interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '1';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =`----1-inputBarcode
+        ----2-return init
+        ----q-exist`.trim();
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+    it("should output the postTransformBarcode interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '2';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =`----2-inputPost
+----3-return the init
+----q-exist
+`.trim();
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+    it("should output the inputBarcode interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '1';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =``;
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+    it("should output the init  interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '2';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =`----初始化界面:
+        ----1-barcodeTransformPost
+        ----2-postTransformBarcode
+        ----q-exist`.trim();
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+
+    it("should output the inputPost  interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '2';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =``;
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+    it("should check the console the help of every interface",function () {
+        const actions = [init, ba, post, inputBar, inputPo];
+        let route = new routes(actions);
+        let cmd = '3';
+        let result = route.handle(cmd);
+        spyOn(console,'log');
+        let expected =`----初始化界面:
+        ----1-barcodeTransformPost
+        ----2-postTransformBarcode
+        ----q-exist
+`.trim();
+        expect(result).toHaveBeenCalledWith(expected);
+    });
+
+});*/

@@ -1,7 +1,7 @@
 /**
  * Created by liuru on 16-7-29.
  */
-const ptb = require('../routes/PostTransformBarcode.js');
+const ptb = require('../PostTransformBarcode.js');
 const CreateAction = require('./RouterAction.js');
 const request = require('superagent');
 const sendRequest = require('../request');
